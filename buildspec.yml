@@ -12,6 +12,7 @@ phases:
     commands:
       - echo 'Check the AWS Version'
       - aws --version
+      - echo "Building the Version: ${CODEBUILD_BUILD_NUMBER}"
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 448049808053.dkr.ecr.ap-south-1.amazonaws.com
       - docker buildx create --name multiarch-builder --platform linux/amd64,linux/arm64 --driver docker-container --bootstrap --use
 
