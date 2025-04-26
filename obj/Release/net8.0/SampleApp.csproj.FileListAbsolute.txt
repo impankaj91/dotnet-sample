@@ -28,3 +28,4 @@ C:\Users\Administrator\source\repos\SampleApp\SampleApp\obj\Release\net8.0\refin
 C:\Users\Administrator\source\repos\SampleApp\SampleApp\obj\Release\net8.0\SampleApp.pdb
 C:\Users\Administrator\source\repos\SampleApp\SampleApp\obj\Release\net8.0\SampleApp.genruntimeconfig.cache
 C:\Users\Administrator\source\repos\SampleApp\SampleApp\obj\Release\net8.0\ref\SampleApp.dll
+C:\Users\Administrator\source\repos\SampleApp\SampleApp\obj\Release\net8.0\SampleApp.sourcelink.json
