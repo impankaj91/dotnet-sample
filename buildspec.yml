@@ -1,21 +1,37 @@
 version: 0.2
 
+env:
+  variables:
+    AWS_REGION: ap-south-1
+    ECR_ACCOUNT: 448049808053
+    REPO_NAME: dotnet-sample
+    REPO_URI: $ECR_ACCOUNT.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO_NAME
+    IMAGE_TAG: $CODEBUILD_BUILD_NUMBER
+
 phases:
   install:
+    runtime-versions:
+      dotnet: 8.0  # Ensure this is 8.0.405+ for multi-platform support
     commands:
       - apt-get update -y
       - apt-get install -y unzip curl
-      - apt install docker -y
-      - apt install docker-buildx
-  
+
   pre_build:
     commands:
-      - echo 'Check the AWS Version'
+      - echo "Checking versions..."
+      - dotnet --info
       - aws --version
-      - echo "Building the Version ${CODEBUILD_BUILD_NUMBER}"
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 448049808053.dkr.ecr.ap-south-1.amazonaws.com
-      - docker buildx create --name multiarch-builder --platform linux/amd64,linux/arm64 --driver docker-container --bootstrap --use
+      - echo "Logging into ECR for .NET publishing"
+      - aws ecr get-login-password --region $AWS_REGION | \
+          dotnet nuget add source --username AWS --password-stdin --name aws $REPO_URI
+      - echo "Building version $IMAGE_TAG"
 
   build:
     commands:
-      - docker buildx build --platform linux/amd64,linux/arm64 --push -t 448049808053.dkr.ecr.ap-south-1.amazonaws.com/dotnet-sample:${CODEBUILD_BUILD_NUMBER} .
+      - echo "Restoring and publishing multi-platform container image"
+      - dotnet restore
+      - dotnet publish -c Release \
+          -p:ContainerRegistry=$REPO_URI \
+          -p:ContainerImageTag=$IMAGE_TAG \
+          -p:ContainerRuntimeIdentifiers="linux-x64;linux-arm64" \
+          /t:PublishContainer --no-restore
