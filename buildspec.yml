@@ -33,6 +33,9 @@ phases:
 
   build:
     commands:
+      - echo $REGISTRY_URL
+      - echo $REPO_NAME
+      - echo $IMAGE_TAG
       - dotnet restore --verbosity detailed  # Detailed output for restore
       - dotnet publish . -c Release \
           -p:ContainerRegistry=$REGISTRY_URL \
