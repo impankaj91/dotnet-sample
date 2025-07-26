@@ -31,10 +31,10 @@ phases:
 
   build:
     commands:
-      - dotnet restore --verbosity detailed  # Add verbosity for better error output
-      - dotnet publish -c Release \
+      - dotnet restore --verbosity detailed  # Detailed output for restore
+      - dotnet publish . -c Release \
           -p:ContainerRegistry=$REGISTRY_URL \
           -p:ContainerRepository=$REPO_NAME \
           -p:ContainerImageTag=$IMAGE_TAG \
           -p:ContainerRuntimeIdentifiers="linux-x64;linux-arm64" \
-          /t:PublishContainer --no-restore --verbosity diagnostic  # Use diagnostic verbosity to show detailed errors
+          /t:PublishContainer --no-restore --verbosity diagnostic  # Specify '.' to indicate the current project directory
