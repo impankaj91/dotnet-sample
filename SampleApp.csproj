@@ -7,7 +7,7 @@
     <ContainerRegistry>448049808053.dkr.ecr.ap-south-1.amazonaws.com</ContainerRegistry>
     <ContainerRepository>dotnet-sample</ContainerRepository>
     <ContainerImageTag>1.0.0</ContainerImageTag>
-    <RuntimeIdentifiers>linux-x64;linux-arm64</RuntimeIdentifiers>
+    <ContainerRuntimeIdentifiers>linux-x64;linux-arm64</ContainerRuntimeIdentifiers>
     <PublishProfile>DefaultContainer</PublishProfile>
   </PropertyGroup>
 
