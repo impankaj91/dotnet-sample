@@ -16,6 +16,8 @@ phases:
     commands:
       - apt-get update -y
       - apt-get install -y docker.io
+      - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 8.0.405  # Install exact SDK 8.0.405
+      - export PATH="$PATH:$HOME/.dotnet"  # Add to PATH for this session
       - dotnet --info  # Verify .NET SDK version early
       - docker run --privileged --rm tonistiigi/binfmt --install all
       - mkdir -p ~/.docker/cli-plugins
