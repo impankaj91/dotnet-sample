@@ -12,12 +12,18 @@ phases:
   install:
     runtime-versions:
       dotnet: 8.0  # Ensure 8.0.405+ for multi-platform support
-      docker: 20   # Install Docker for underlying container tooling
     commands:
       - apt-get update -y
-      - apt-get install -y unzip curl
+      - apt-get install -y unzip curl docker.io  # Manually install Docker
       - echo "Verifying .NET SDK installation"
       - dotnet --info  # Early check to ensure dotnet is in PATH
+      # Install QEMU for multi-arch emulation (required for Buildx under the hood)
+      - docker run --privileged --rm tonistiigi/binfmt --install all
+      # Install Docker Buildx plugin (used internally by .NET SDK for multi-platform)
+      - mkdir -p ~/.docker/cli-plugins
+      - curl -fsSL https://github.com/docker/buildx/releases/download/v0.10.5/buildx-v0.10.5.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
+      - chmod +x ~/.docker/cli-plugins/docker-buildx
+      - export DOCKER_BUILDKIT=1  # Enable BuildKit for better performance
 
   pre_build:
     commands:
