@@ -37,8 +37,8 @@ phases:
       - echo "$REGISTRY_URL"
       - echo "$REPO_NAME"
       - echo "$IMAGE_TAG"
-      - dotnet restore
-      - dotnet publish . -c Release \
+      - dotnet restore SampleApp.csproj
+      - dotnet publish SampleApp.csproj -c Release \
           -p:ContainerRegistry=448049808053.dkr.ecr.ap-south-1.amazonaws.com \
           -p:ContainerRepository=dotnet-sample \
           -p:ContainerImageTag=11.0.1 \
