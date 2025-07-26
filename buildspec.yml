@@ -16,7 +16,7 @@ phases:
     commands:
       - apt-get update -y
       - apt-get install -y docker.io
-      - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 8.0.405  # Install exact SDK 8.0.405
+      - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 9.0.102  # Install exact SDK 8.0.405
       - export PATH="$PATH:$HOME/.dotnet"  # Add to PATH for this session
       - dotnet --info  # Verify .NET SDK version early
       - docker run --privileged --rm tonistiigi/binfmt --install all
@@ -37,6 +37,12 @@ phases:
       - echo "$REGISTRY_URL"
       - echo "$REPO_NAME"
       - echo "$IMAGE_TAG"
-      - dotnet restore SampleApp.csproj
+      - dotnet restore
+      #- dotnet publish SampleApp.csproj -c Release /t:PublishContainer --no-restore -p:ContainerRuntimeIdentifiers="linux-x64;linux-arm64"
+      #- dotnet restore SampleApp.csproj -p:ContainerRuntimeIdentifiers="linux-arm64"
       #- dotnet publish -c Release
-      - dotnet publish -c Release /t:PublishContainer --no-restore -p:ContainerRuntimeIdentifiers="linux-x64;linux-arm64"
+      #- dotnet publish -c Release /t:PublishContainer
+      #- dotnet restore SampleApp.csproj -r linux-x64
+      #- dotnet restore SampleApp.csproj -r linux-arm64
+      - dotnet publish SampleApp.csproj -c Release /t:PublishContainer --no-restore
+  
