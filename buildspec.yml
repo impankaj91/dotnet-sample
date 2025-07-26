@@ -11,19 +11,22 @@ env:
 phases:
   install:
     runtime-versions:
-      dotnet: 8.0  # Ensure this is 8.0.405+ for multi-platform support
+      dotnet: 8.0  # Ensure 8.0.405+ for multi-platform support
+      docker: 20   # Install Docker for underlying container tooling
     commands:
       - apt-get update -y
       - apt-get install -y unzip curl
+      - echo "Verifying .NET SDK installation"
+      - dotnet --info  # Early check to ensure dotnet is in PATH
 
   pre_build:
     commands:
       - echo "Checking versions..."
       - dotnet --info
+      - docker --version
       - aws --version
-      - echo "Logging into ECR for .NET publishing"
-      - aws ecr get-login-password --region $AWS_REGION | \
-          dotnet nuget add source --username AWS --password-stdin --name aws $REPO_URI
+      - echo "Logging into ECR"
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $REPO_URI
       - echo "Building version $IMAGE_TAG"
 
   build:
