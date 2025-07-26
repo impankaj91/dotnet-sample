@@ -8,6 +8,8 @@
     <ContainerRegistry>448049808053.dkr.ecr.ap-south-1.amazonaws.com</ContainerRegistry>
     <ContainerImageTag>1.0.0</ContainerImageTag>
     <ContainerRuntimeIdentifiers>linux-x64;linux-arm64</ContainerRuntimeIdentifiers>
+    <RuntimeIdentifiers>linux-x64;linux-arm64</RuntimeIdentifiers>
+    <SelfContained>true</SelfContained>
     <PublishProfile>DefaultContainer</PublishProfile>
   </PropertyGroup>
 
