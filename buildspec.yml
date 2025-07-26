@@ -38,4 +38,4 @@ phases:
       - echo "$REPO_NAME"
       - echo "$IMAGE_TAG"
       - dotnet restore SampleApp.csproj
-      - dotnet publish -c Release --target PublishContainer --no-restore
+      - dotnet publish -c Release /t:PublishContainer --no-restore
