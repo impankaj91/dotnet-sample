@@ -38,9 +38,4 @@ phases:
       - echo "$REPO_NAME"
       - echo "$IMAGE_TAG"
       - dotnet restore SampleApp.csproj
-      - dotnet publish SampleApp.csproj -c Release \
-          -p:ContainerRegistry=448049808053.dkr.ecr.ap-south-1.amazonaws.com \
-          -p:ContainerRepository=dotnet-sample \
-          -p:ContainerImageTag=11.0.1 \
-          -p:ContainerRuntimeIdentifiers="linux-x64;linux-arm64" \
-          /t:PublishContainer --no-restore --verbosity diagnostic  # Specify '.' to indicate the current project directory
+      - dotnet publish . -c Release
