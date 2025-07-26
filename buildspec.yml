@@ -39,4 +39,4 @@ phases:
       - echo "$IMAGE_TAG"
       - dotnet restore SampleApp.csproj
       - dotnet publish -c Release
-      #- dotnet publish -c Release /t:PublishContainer --no-restore
+      #- dotnet publish -c Release /t:PublishContainer --no-restore -p:ContainerRuntimeIdentifiers="linux-x64;linux-arm64"
