@@ -4,10 +4,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ContainerRegistry>448049808053.dkr.ecr.ap-south-1.amazonaws.com</ContainerRegistry>
-    <ContainerRepository>dotnet-multi</ContainerRepository>
-    <ContainerImageTag>2.0.1</ContainerImageTag>
-    <ContainerRuntimeIdentifiers>linux-x64;linux-arm64</ContainerRuntimeIdentifiers>
+    <!--<ContainerRegistry>448049808053.dkr.ecr.ap-south-1.amazonaws.com</ContainerRegistry>-->
+    <!--<ContainerRepository>dotnet-multi</ContainerRepository>-->
+    <!--<ContainerImageTag>2.0.1</ContainerImageTag>-->
+    <!--<ContainerRuntimeIdentifiers>linux-x64;linux-arm64</ContainerRuntimeIdentifiers>-->
     <PublishProfile>DefaultContainer</PublishProfile>
   </PropertyGroup>
 
