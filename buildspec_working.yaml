@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - apt-get update -y
+      - apt-get install -y unzip curl
+      - apt install docker -y
+      - apt install docker-buildx
+  
+  pre_build:
+    commands:
+      - echo 'Check the AWS Version'
+      - aws --version
+      - echo "Building the Version: ${CODEBUILD_BUILD_NUMBER}"
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 448049808053.dkr.ecr.ap-south-1.amazonaws.com
+      - docker buildx create --name multiarch-builder --platform linux/amd64,linux/arm64 --driver docker-container --bootstrap --use
+
+  build:
+    commands:
+      - docker buildx build --platform linux/amd64,linux/arm64 --push -t 448049808053.dkr.ecr.ap-south-1.amazonaws.com/dotnet-sample:${CODEBUILD_BUILD_NUMBER} .
