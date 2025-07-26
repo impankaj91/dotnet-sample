@@ -11,36 +11,22 @@ env:
 phases:
   install:
     runtime-versions:
-      dotnet: 8.0  # Ensure 8.0.405+ for multi-platform support
+      dotnet: 8.0
     commands:
       - apt-get update -y
-      - apt-get install -y unzip curl docker.io  # Manually install Docker
-      - echo "Verifying .NET SDK installation"
-      - dotnet --info  # Early check to ensure dotnet is in PATH
-      # Install QEMU for multi-arch emulation (required for Buildx under the hood)
+      - apt-get install -y docker.io
+      - dotnet --info
       - docker run --privileged --rm tonistiigi/binfmt --install all
-      # Install Docker Buildx plugin (used internally by .NET SDK for multi-platform)
       - mkdir -p ~/.docker/cli-plugins
       - curl -fsSL https://github.com/docker/buildx/releases/download/v0.10.5/buildx-v0.10.5.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
       - chmod +x ~/.docker/cli-plugins/docker-buildx
-      - export DOCKER_BUILDKIT=1  # Enable BuildKit for better performance
+      - export DOCKER_BUILDKIT=1
 
   pre_build:
     commands:
-      - echo "Checking versions..."
-      - dotnet --info
-      - docker --version
-      - aws --version
-      - echo "Logging into ECR"
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $REPO_URI
-      - echo "Building version $IMAGE_TAG"
 
   build:
     commands:
-      - echo "Restoring and publishing multi-platform container image"
       - dotnet restore
-      - dotnet publish -c Release \
-          -p:ContainerRegistry=$REPO_URI \
-          -p:ContainerImageTag=$IMAGE_TAG \
-          -p:ContainerRuntimeIdentifiers="linux-x64;linux-arm64" \
-          /t:PublishContainer --no-restore
+      - dotnet publish -c Release -p:ContainerRegistry=$REPO_URI -p:ContainerImageTag=$IMAGE_TAG -p:ContainerRuntimeIdentifiers="linux-x64;linux-arm64" /t:PublishContainer --no-restore
