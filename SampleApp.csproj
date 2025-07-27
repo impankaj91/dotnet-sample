@@ -8,6 +8,7 @@
     <ContainerRepository>dotnet-multi</ContainerRepository>
     <ContainerImageTag>2.0.2</ContainerImageTag>
     <ContainerRuntimeIdentifiers>linux-x64;linux-arm64</ContainerRuntimeIdentifiers>
+    <RuntimeIdentifiers>linux-x64;linux-arm64</RuntimeIdentifiers>
     <PublishProfile>DefaultContainer</PublishProfile>
   </PropertyGroup>
 
