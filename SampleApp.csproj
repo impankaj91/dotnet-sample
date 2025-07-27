@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ContainerRegistry>448049808053.dkr.ecr.ap-south-1.amazonaws.com</ContainerRegistry>
     <ContainerRepository>dotnet-multi</ContainerRepository>
-    <ContainerImageTag>2.0.4</ContainerImageTag>
+    <ContainerImageTag>2.0.5</ContainerImageTag>
     <ContainerRuntimeIdentifiers>linux-arm64;linux-x64</ContainerRuntimeIdentifiers>
     <RuntimeIdentifiers>linux-arm64;linux-x64</RuntimeIdentifiers>
     <PublishProfile>DefaultContainer</PublishProfile>
