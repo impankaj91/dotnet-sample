@@ -8,7 +8,7 @@
     <ContainerRepository>ops-8385</ContainerRepository>
     <!--<ContainerImageTag>2.0.5</ContainerImageTag>-->
     <ContainerRuntimeIdentifiers>linux-arm64;linux-x64</ContainerRuntimeIdentifiers>
-    <!--<RuntimeIdentifiers>linux-arm64;linux-x64</RuntimeIdentifiers>-->
+    <RuntimeIdentifiers>linux-arm64;linux-x64</RuntimeIdentifiers>
     <PublishProfile>DefaultContainer</PublishProfile>
   </PropertyGroup>
 
